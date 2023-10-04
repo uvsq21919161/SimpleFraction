@@ -1,4 +1,4 @@
-class fraction {
+class fraction extends Number{
 
     int numerateur;
     int denominateur;
@@ -45,16 +45,28 @@ class fraction {
         }
     }
 
-    public void compare(fraction autre) {
-        if (this.doubleValue() == autre.doubleValue()) {
-            System.out.println(this.toString() + autre.toString() + " ont la même valeur.");
-        }
-        else if (this.doubleValue() > autre.doubleValue()) {
-            System.out.println(this.toString() + " est plus grand que " + autre.toString() + ".");
+    public Boolean compare(fraction fraction) {
+        if ((this.getNumerateur() == fraction.getNumerateur()) && (this.getDenominateur() == fraction.getDenominateur())) {
+            return true;
         }
         else {
-            System.out.println(this.toString() + " est plus petit que " + autre.toString() + ".");
+            return false;
         }
+    }
+
+    @Override
+    public int intValue() {
+        return numerateur / denominateur;
+    }
+
+    @Override
+    public long longValue() {
+        return (long) numerateur / denominateur;
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) numerateur / denominateur;
     }
 
     @Override
@@ -103,7 +115,11 @@ class main {
         assert frac3.toString().equals(frac4.toString()): "Les valeurs ne sont pas égaux.";
         System.out.println("Tests de l'égalité réussi.");
 
-        frac.compare(frac2);
+        assert fraction1.compare(fraction2);
+
+        Number aNumber = java.math.BigDecimal.ONE;
+        Number anotherNumber = new fraction(1, 2);
+        assert java.lang.Math.abs(aNumber.doubleValue() + anotherNumber.doubleValue() - 1.5) < 1E-8;
 
     }
 }
